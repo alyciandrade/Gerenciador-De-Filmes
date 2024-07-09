@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+.filme-container{
+  width: 100%;
+  max-width: 1200px;
+  padding: 5 10px;
+  margin: 30px auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.topo{
+    padding: 10px 0;
+    display: flex;
+    gap: 150px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.topo img {
+  width: 240px; 
+  height: 220px; 
+  display: block; 
+  margin-left: 40px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.topo h2{
+    margin-top: 90px; 
+    font-family: "Source Sans 3", sans-serif;
+    font-weight: bold;
+    color: #364E89;
 }
 
-.App-link {
-  color: #61dafb;
+.filme-container header button{
+  height: 50px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ccccd5;
+  background: #364E89;
+  margin-left: 16px;
+  transition: border-color 0.5s;
+  float: right;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.filme-container header button:hover{
+  border-color: #2d3e69
+}
+
+table, th, td {
+  border: 1px #131d36;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 20px;
+  text-align: left;
 }
