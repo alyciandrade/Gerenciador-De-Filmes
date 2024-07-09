@@ -12,8 +12,10 @@ function App() {
    const baseUrl="https://localhost:7165/api/filmes";
 
    const [data, setData]=useState([]);
+   const [updateData, setUpdateData]=useState(true);
    const [modalAdicionar, setModalAdicionar]=useState(false);
    const [modalEditar, setModalEditar]=useState(false);
+   const [modalExcluir, setModalExcluir]=useState(false);
 
    const [filmeSelecionado, setFilmeSelecionado]=useState({
     id: '',
@@ -23,8 +25,8 @@ function App() {
    
    const selecionarFilme = (filme, opcao) => {
     setFilmeSelecionado(filme);
-    (opcao === "Editar") &&
-    abrirFecharModalEditar()
+    (opcao === "Editar") ?
+    abrirFecharModalEditar() : abrirFecharModalExcluir();
    }
 
    const abrirFecharModalAdicionar=()=>{
@@ -33,6 +35,10 @@ function App() {
 
    const abrirFecharModalEditar=() =>{
     setModalEditar(!modalEditar);
+   }
+
+   const abrirFecharModalExcluir=() =>{
+    setModalExcluir(!modalExcluir);
    }
 
    const handleChange = e=>{
@@ -59,6 +65,7 @@ function App() {
     await axios.post(baseUrl, filmeSelecionado)
     .then(response=>{
       setData(data.concat(response.data));
+      setUpdateData(true); 
       abrirFecharModalAdicionar();
     }).catch(error=>{
       console.log(error);
@@ -77,15 +84,30 @@ function App() {
           filme.nota=resposta.nota;
         }
       });
+      setUpdateData(true);
       abrirFecharModalEditar();
     }).catch(error=>{
       console.log(error);
     })
    }
 
+   const pedidoDelete=async()=>{
+    await axios.delete(baseUrl+"/"+filmeSelecionado.id)
+    .then(response=>{
+      setData(data.filter(filme=> filme.id !== response.data));
+      setUpdateData(true);
+      abrirFecharModalExcluir();
+    }).catch(error=>{
+      console.log(error);
+    })
+   }
+
    useEffect(()=>{
-    pedidoGet();
-  })
+    if(updateData){
+      pedidoGet();
+      setUpdateData(false);
+    }
+  },[updateData])
 
   return (
     <div className="filme-container">
@@ -168,6 +190,17 @@ function App() {
         <ModalFooter>
           <button className='btn btn-primary'onClick={()=>pedidoPut()} >Editar</button>{"  "}
           <button className='btn btn-primary'onClick={()=>abrirFecharModalEditar()} >Cancelar</button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal isOpen={modalExcluir}>
+        <ModalBody>
+          Deseja excluir este filme: {filmeSelecionado && filmeSelecionado.nome} ?
+        </ModalBody>
+
+        <ModalFooter>
+          <button className='btn btn-danger' onClick={()=>pedidoDelete()}> Sim </button>
+          <button className='btn btn-secondary' onClick={()=>abrirFecharModalExcluir()}> Não </button>
         </ModalFooter>
       </Modal>
     </div>
