@@ -49,6 +49,25 @@ function App() {
     console.log(filmeSelecionado);
    }
 
+   const handleStarClick = (nota) => {
+    setFilmeSelecionado({
+      ...filmeSelecionado, nota: nota
+    });
+  }
+
+  const renderStars = (nota) => {
+    return (
+      <div className="stars">
+        {[1, 2, 3, 4, 5].map(star => (
+          <span
+            key={star}
+            className={`star ${star <= nota ? 'selected' : ''}`}
+          >★</span>
+        ))}
+      </div>
+    );
+  }  
+
    const pedidoGet = async()=>{
       await axios.get(baseUrl)
       .then(response => {
@@ -136,7 +155,7 @@ function App() {
             <tr key={filme.id}>
               <td>{filme.id}</td>
               <td>{filme.nome}</td>
-              <td>{filme.nota}</td>
+              <td>{renderStars(filme.nota)}</td>
               <td>
                 <button className="btn btn-primary" onClick={()=>selecionarFilme(filme, "Editar")}>Editar</button> {"  "}
                 <button className="btn btn-danger" onClick={()=>selecionarFilme(filme, "Excluir")}>Excluir</button>
@@ -160,6 +179,15 @@ function App() {
             <br />
             <label>Nota:</label>
             <br />
+            <div className="stars">
+              {[1, 2, 3, 4, 5].map(star => (
+                <span
+                  key={star}
+                  className={`star ${star <= filmeSelecionado.nota ? 'selected' : ''}`}
+                  onClick={() => handleStarClick(star)}
+                >★</span>
+              ))}
+            </div>
             <input type="text" className='form-control' name="nota" onChange={handleChange}/>
             <br />
           </div>
@@ -183,6 +211,15 @@ function App() {
             <input type="text" className='form-control' name="nome" onChange={handleChange} /><br
             value={filmeSelecionado && filmeSelecionado.nome}/><br />
             <label>Nota: </label><br />
+            <div className="stars">
+              {[1, 2, 3, 4, 5].map(star => (
+                <span
+                  key={star}
+                  className={`star ${star <= filmeSelecionado.nota ? 'selected' : ''}`}
+                  onClick={() => handleStarClick(star)}
+                >★</span>
+              ))}
+            </div>
             <input type="text" className='form-control' name="nota" onChange={handleChange} /><br 
              value={filmeSelecionado && filmeSelecionado.nota}/><br />
           </div>

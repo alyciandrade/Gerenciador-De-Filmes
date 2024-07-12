@@ -74,7 +74,5 @@ namespace CineListAPI
             var context = scope.ServiceProvider.GetService<FilmeDbContext>();
         }
 
-        
-
     }
 }
