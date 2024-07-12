@@ -5,6 +5,6 @@ no front-end e C# no back-end. A aplicação oferece todas as operações CRUD p
 # Passos para a execução do projeto:
 
 ## 1: Inicie o back-end utilizando "dotnet run" no terminal
-![back-end](CineList/Imagens - Testes/Captura de tela 2024-07-12 182225.png)
+(CineList/Imagens - Testes/Captura de tela 2024-07-12 182225.png)
 
 
